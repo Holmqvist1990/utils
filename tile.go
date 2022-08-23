@@ -19,13 +19,23 @@ func TilesetRect[T Integer](sprite, tileSize, tilesetWidth T) (x1, y1, x2, y2 T)
 }
 
 // 1D to 2D coordinate conversion.
-func IndexToXY[T Integer](idx, tilesetWidth T) (x, y T) {
-	x = idx % tilesetWidth
-	y = idx / tilesetWidth
+func IndexToXY[T Integer](idx, mapWidth, mapHeight T) (x, y T) {
+	x = idx % mapWidth
+	y = idx / mapHeight
 	return x, y
 }
 
 // 2D to 1D coordinate conversion.
-func XYToIndex[T Integer](x, y, tilesetWidth T) T {
-	return x + y*tilesetWidth
+func XYToIndex[T Integer](x, y, mapHeight T) T {
+	return x + y*mapHeight
+}
+
+// Removes under/overflow.
+func ClampXYToMap[T Integer](x, y, mapWidth, mapHeight T) (T, T) {
+	return Max(0, Min(x, mapWidth-1)), Max(0, Min(y, mapHeight-1))
+}
+
+// Removes under/overflow.
+func ClampIndexToMap[T Integer](index, mapWidth, mapHeight T) T {
+	return Clamp(index, 0, (mapWidth*mapHeight)-1)
 }
