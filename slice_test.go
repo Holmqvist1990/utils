@@ -19,13 +19,31 @@ func BenchmarkRemoveMany(b *testing.B) {
 	}
 }
 
+// As fast as if written by hand.
 func BenchmarkFilter(b *testing.B) {
+	ints := makeInts(b.N)
+	f := func(n int) bool {
+		return n%2 == 0
+	}
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		ints = Filter(ints, f)
+	}
+}
+
+// To compare with benchmark above.
+func BenchmarkInlinedFilter(b *testing.B) {
 	ints := makeInts(b.N)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		ints = Filter(ints, func(n int) bool {
-			return n%2 == 0
-		})
+		var n int
+		for _, v := range ints {
+			if v%2 == 0 {
+				ints[n] = v
+				n++
+			}
+		}
+		ints = ints[:n]
 	}
 }
 
