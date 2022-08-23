@@ -1,8 +1,10 @@
 # UTILS
 
-A library for common helper functions.
+A no-alloc, low time complexity, generics library for common functions in 2D games.
 
-Most implementations are generic and no alloc.
+* Math (vectors, clamping, lerping...)
+* Slices (remove, filter in place...)
+* Tile (1D, 2D, safe indexing...)
 
 ## BENCHMARKS for slice operations
 ```

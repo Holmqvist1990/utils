@@ -32,3 +32,7 @@ func Distance[T Number](x1, y1, x2, y2 T) T {
 func Clamp[T Number](n, low, high T) T {
 	return Max(low, Min(n, high))
 }
+
+func Lerp[T Number](start, end, t T) T {
+	return (start + (end-start)*t)
+}
