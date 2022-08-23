@@ -4,7 +4,7 @@ A library for common helper functions.
 
 Most implementations are generic and no alloc.
 
-## BENCHMARKS
+## BENCHMARKS for slice operations
 ```
 cpu: Intel(R) Core(TM) i7-10510U CPU @ 1.80GHz
 
