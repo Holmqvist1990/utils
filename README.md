@@ -1,6 +1,6 @@
-# UTILS
+# 2D-UTILS
 
-A no-alloc, low time complexity, generics library for common functions in 2D games.
+A no-alloc, low time complexity, generics based utilities library for 2D games.
 
 * Math (vectors, clamping, lerping...)
 * Slices (remove, filter in place...)
