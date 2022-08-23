@@ -28,3 +28,11 @@ func Filter[T any](s []T, f func(T) bool) []T {
 	}
 	return s[:n]
 }
+
+// Mutates in place, no allocations.
+func Map[T any](s []T, f func(T) T) []T {
+	for i, v := range s {
+		s[i] = f(v)
+	}
+	return s
+}
