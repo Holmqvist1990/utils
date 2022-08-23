@@ -19,6 +19,16 @@ func BenchmarkRemoveMany(b *testing.B) {
 	}
 }
 
+func BenchmarkFilter(b *testing.B) {
+	ints := makeInts(b.N)
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		ints = Filter(ints, func(n int) bool {
+			return n%2 == 0
+		})
+	}
+}
+
 func makeInts(n int) []int {
 	ints := make([]int, n)
 	for i := range ints {
