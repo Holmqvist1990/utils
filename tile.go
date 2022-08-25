@@ -39,3 +39,11 @@ func ClampXYToMap[T Integer](x, y, mapWidth, mapHeight T) (T, T) {
 func ClampIndexToMap[T Integer](index, mapWidth, mapHeight T) T {
 	return Clamp(index, 0, (mapWidth*mapHeight)-1)
 }
+
+func IsXYInRange[T Integer](x, y, mapWidth, mapHeight T) bool {
+	return x >= 0 && x < mapWidth && y >= 0 && y < mapHeight
+}
+
+func IsIndexInRange[T Integer](index, mapWidth, mapHeight T) bool {
+	return index >= 0 && index < mapWidth*mapHeight
+}

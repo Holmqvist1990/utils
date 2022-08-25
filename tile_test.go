@@ -40,9 +40,10 @@ func TestClampXYtoMap(t *testing.T) {
 	}
 	for _, test := range tests {
 		x, y := ClampXYToMap(test.x, test.y, MAP_WIDTH, MAP_HEIGHT)
-		res := MAP_XY[y][x]
-		if res != test.want {
-			t.Fatalf("{x: %d, y: %d}: wanted %d, got %d", test.x, test.y, test.want, res)
+		got := MAP_XY[y][x]
+		if got != test.want {
+			t.Fatalf("{x: %d, y: %d}: wanted %d, got %d",
+				test.x, test.y, test.want, got)
 		}
 	}
 }
@@ -65,9 +66,53 @@ func TestClampIndexToMap(t *testing.T) {
 	}
 	for _, test := range tests {
 		index := ClampIndexToMap(test.index, MAP_WIDTH, MAP_HEIGHT)
-		res := MAP[index]
-		if res != test.want {
-			t.Fatalf("{index: %d}: wanted %d, got %d", test.index, test.want, res)
+		got := MAP[index]
+		if got != test.want {
+			t.Fatalf("{index: %d}: wanted %d, got %d",
+				test.index, test.want, got)
+		}
+	}
+}
+
+func TestIsXYInRange(t *testing.T) {
+	tests := []struct {
+		x    int
+		y    int
+		want bool
+	}{
+		{-1, 0, false},
+		{0, -1, false},
+		{0, 0, true},
+		{3, 0, true},
+		{0, 3, true},
+		{4, 0, false},
+		{0, 5, false},
+	}
+	for _, test := range tests {
+		got := IsXYInRange(test.x, test.y, MAP_WIDTH, MAP_HEIGHT)
+		if got != test.want {
+			t.Fatalf("{x: %d, y: %d}: wanted %v, got %v",
+				test.x, test.y, test.want, got)
+		}
+	}
+}
+
+func TestIsIndexInRange(t *testing.T) {
+	tests := []struct {
+		index int
+		want  bool
+	}{
+		{-1, false},
+		{0, true},
+		{15, true},
+		{16, false},
+		{17, false},
+	}
+	for _, test := range tests {
+		got := IsIndexInRange(test.index, MAP_WIDTH, MAP_HEIGHT)
+		if got != test.want {
+			t.Fatalf("{index: %d}: wanted %v, got %v",
+				test.index, test.want, got)
 		}
 	}
 }
