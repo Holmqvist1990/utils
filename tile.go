@@ -47,3 +47,8 @@ func IsXYInRange[T Integer](x, y, mapWidth, mapHeight T) bool {
 func IsIndexInRange[T Integer](index, mapWidth, mapHeight T) bool {
 	return index >= 0 && index < mapWidth*mapHeight
 }
+
+// Returns range through min/max for XY.
+func XYRange[T Number](x1, y1, x2, y2 T) (T, T, T, T) {
+	return Min(x1, x2), Min(y1, y2), Max(x1, x2), Max(y1, y2)
+}
