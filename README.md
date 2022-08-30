@@ -1,12 +1,16 @@
 # 2D-UTILS
 
-A no-alloc, low time complexity, generics based utilities library for 2D games.
+A no-alloc*, low time complexity, generics based utilities library for 2D games.
 
 * Movement (normalization, drag...)
 * Math (vectors, clamping, lerping...)
 * Slices (remove, filter in place...)
 * Tile (1D, 2D, safe indexing...)
 * Timer (linear, delta...)
+
+```
+* For math/slice operations.
+```
 
 ## BENCHMARKS for slice operations
 ```
