@@ -5,6 +5,7 @@ A no-alloc, low time complexity, generics based utilities library for 2D games.
 * Math (vectors, clamping, lerping...)
 * Slices (remove, filter in place...)
 * Tile (1D, 2D, safe indexing...)
+* Timer (linear, delta)
 
 ## BENCHMARKS for slice operations
 ```
