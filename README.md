@@ -1,16 +1,12 @@
 # 2D-UTILS
 
-A no-alloc*, low time complexity, generics based utilities library for 2D games.
+A low-alloc, low time complexity, generics based utilities library for 2D games.
 
 * Movement (normalization, drag...)
 * Math (vectors, clamping, lerping...)
 * Slices (remove, filter in place...)
 * Tile (1D, 2D, safe indexing...)
 * Timer (linear, delta...)
-
-```
-* For math/slice operations.
-```
 
 ## BENCHMARKS for slice operations
 ```
@@ -22,10 +18,14 @@ BenchmarkFilter-8            114692    101617 ns/op    0 B/op    0 allocs/op
 BenchmarkInlinedFilter-8     334354    107903 ns/op    0 B/op    0 allocs/op
 ```
 
-## HOW TO TEST OR BENCHMARK
+## HOW TO TEST
 
 ```
 $ go test ./...
+```
 
+## HOW TO BENCHMARK
+
+```
 $ go test ./... -bench=.
 ```
