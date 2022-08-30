@@ -40,6 +40,16 @@ func Clamp[T Number](n, low, high T) T {
 	return Max(low, Min(n, high))
 }
 
+// If v is less than min, return 0,
+// otherwise v.
+func MinOrZero[T Number](v, min T) T {
+	if v < min {
+		return 0
+	}
+
+	return v
+}
+
 func Lerp[T Number](start, end, t T) T {
 	return (start + (end-start)*t)
 }
