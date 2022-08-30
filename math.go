@@ -43,7 +43,7 @@ func Clamp[T Number](n, low, high T) T {
 // If v is less than min, return 0,
 // otherwise v.
 func MinOrZero[T Number](v, min T) T {
-	if v < min {
+	if Abs(v) < min {
 		return 0
 	}
 
