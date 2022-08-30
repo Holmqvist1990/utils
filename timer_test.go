@@ -1,8 +1,11 @@
 package utils
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
-func TestTimer(t *testing.T) {
+func TestTimerTick(t *testing.T) {
 	tests := []struct {
 		Name       string
 		Duration   int
@@ -27,23 +30,86 @@ func TestTimer(t *testing.T) {
 	}
 	for _, test := range tests {
 		timer, err := NewTimer(test.Duration)
-		if test.WantError && err == nil {
-			t.Fatalf("%v: expected error", test.Name)
-		}
-		if err != nil {
+		ok, err := checkError(test.Name, test.WantError, err)
+		if !ok {
 			if test.WantError {
 				continue
-			} else {
-				t.Fatalf("%v: did not want error, got: %v", test.Name, err)
 			}
+			t.Fatal(err)
 		}
+
 		var finishedIn int
 		for !timer.Finished() {
 			timer.Tick()
 			finishedIn++
 		}
+
 		if finishedIn != test.FinishedIn {
-			t.Fatalf("%v: wanted: %v, got: %v", test.Name, test.FinishedIn, finishedIn)
+			t.Fatalf("%v: wanted: %v, got: %v",
+				test.Name, test.FinishedIn, finishedIn)
 		}
 	}
+}
+
+func TestTimerTickDelta(t *testing.T) {
+	tests := []struct {
+		Name       string
+		Duration   float32
+		Delta      float32
+		WantError  bool
+		FinishedIn int
+	}{
+		{
+			Name:      "negative delta",
+			Duration:  1.0,
+			Delta:     -1.0,
+			WantError: true,
+		},
+		{
+			Name:      "zero delta",
+			Duration:  1.0,
+			WantError: true,
+		},
+		{
+			Name:       "two point five seconds",
+			Duration:   2.5,
+			Delta:      0.5,
+			FinishedIn: 5,
+		},
+	}
+	for _, test := range tests {
+		timer, _ := NewTimer(test.Duration)
+		var finishedIn int
+		for !timer.Finished() {
+			err := timer.TickDelta(test.Delta)
+			ok, err := checkError(test.Name, test.WantError, err)
+			if !ok {
+				if test.WantError {
+					return
+				}
+				t.Fatal(err)
+			}
+
+			finishedIn++
+		}
+
+		if finishedIn != test.FinishedIn {
+			t.Fatalf("%v: wanted: %v, got: %v",
+				test.Name, test.FinishedIn, finishedIn)
+		}
+	}
+}
+
+func checkError(name string, want bool, err error) (bool, error) {
+	if err != nil && !want {
+		return false, fmt.Errorf("%v: did not expect error: %v",
+			name, err)
+	}
+	if err == nil && want {
+		return false, fmt.Errorf("%v: expected error: %v", name, err)
+	}
+	if err != nil && want {
+		return false, nil
+	}
+	return true, nil
 }
