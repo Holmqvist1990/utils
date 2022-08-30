@@ -10,21 +10,22 @@ type Mover[T Float] struct {
 	DeltaX T
 	DeltaY T
 
+	MinimumVelocity T
+
 	Acceleration T
 	Drag         T
 }
 
-func NewMover[T Float](x, y, dx, dy, acc, drag T) (*Mover[T], error) {
+func NewMover[T Float](x, y, minimumVel, acc, drag T) (*Mover[T], error) {
 	if !(acc > 0) {
 		return nil, fmt.Errorf("acc must be positive: %v", acc)
 	}
 	return &Mover[T]{
-		PosX:         x,
-		PosY:         y,
-		DeltaX:       dx,
-		DeltaY:       dy,
-		Acceleration: acc,
-		Drag:         drag,
+		PosX:            x,
+		PosY:            y,
+		MinimumVelocity: minimumVel,
+		Acceleration:    acc,
+		Drag:            drag,
 	}, nil
 }
 
@@ -48,5 +49,7 @@ func (m *Mover[T]) UpdateDelta(delta T) {
 
 func (m *Mover[T]) drag() {
 	m.DeltaX *= 1 - m.Drag
+	m.DeltaX = MinOrZero(m.DeltaX, m.MinimumVelocity)
 	m.DeltaY *= 1 - m.Drag
+	m.DeltaY = MinOrZero(m.DeltaY, m.MinimumVelocity)
 }
