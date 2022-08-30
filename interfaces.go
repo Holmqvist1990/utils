@@ -11,3 +11,7 @@ type Number interface {
 type Integer interface {
 	constraints.Signed | constraints.Unsigned
 }
+
+type Float interface {
+	constraints.Float
+}
