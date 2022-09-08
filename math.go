@@ -1,5 +1,7 @@
 package utils
 
+import "math"
+
 func Max[T Number](a, b T) T {
 	if a > b {
 		return a
@@ -24,12 +26,18 @@ func Abs[T Number](n T) T {
 	return n
 }
 
+func Magnitude[T Number](x, y T) T {
+	_x, _y := float64(x), float64(y)
+	return T(math.Sqrt(_x*_x + _y*_y))
+}
+
 func Normalize[T Float](x, y T) (T, T) {
 	if x == 0 || y == 0 {
 		return x, y
 	}
 
-	return x * 0.7, y * 0.7
+	m := Magnitude(x, y)
+	return x / m, y / m
 }
 
 func Distance[T Number](x1, y1, x2, y2 T) T {
@@ -40,8 +48,7 @@ func Clamp[T Number](n, low, high T) T {
 	return Max(low, Min(n, high))
 }
 
-// If Abs(v) is less than min,
-// return 0, otherwise v.
+// Minimum absolute value or zero.
 func MinOrZero[T Number](v, min T) T {
 	if Abs(v) < min {
 		return 0
