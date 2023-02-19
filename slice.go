@@ -36,3 +36,12 @@ func Map[T any](s []T, f func(T) T) []T {
 	}
 	return s
 }
+
+// Allocs new slice of type E the size of s.
+func MapTo[T, E any](s []T, f func(T) E) []E {
+	ee := make([]E, len(s))
+	for i, v := range s {
+		ee[i] = f(v)
+	}
+	return ee
+}

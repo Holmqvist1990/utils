@@ -1,6 +1,9 @@
 package utils
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func BenchmarkRemove(b *testing.B) {
 	ints := makeInts(b.N)
@@ -44,6 +47,33 @@ func BenchmarkInlinedFilter(b *testing.B) {
 			}
 		}
 		ints = ints[:n]
+	}
+}
+
+func TestMap(t *testing.T) {
+	ints := makeInts(8)
+	double := func(i int) int {
+		return i * 2
+	}
+	doubles := Map(makeInts(8), double)
+	for i := range doubles {
+		if double(ints[i]) != doubles[i] {
+			t.Fatalf("expected %v got %v",
+				double(ints[i]), doubles[i])
+		}
+	}
+}
+
+func TestMapTo(t *testing.T) {
+	ints := makeInts(8)
+	itoa := func(i int) string {
+		return fmt.Sprintf("%d", i)
+	}
+	strs := MapTo(ints, itoa)
+	for i := range strs {
+		if itoa(ints[i]) != strs[i] {
+			t.Fatalf("expected %v got %v", itoa(ints[i]), strs[i])
+		}
 	}
 }
 
