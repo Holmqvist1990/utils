@@ -24,6 +24,14 @@ func NewTimer[T Number](duration T) (*Timer[T], error) {
 	}, nil
 }
 
+func (t *Timer[T]) Start() {
+	t.CurrentTime = 0
+}
+
+func (t *Timer[T]) IsRunning() bool {
+	return t.CurrentTime > 0
+}
+
 func (t *Timer[T]) SetCurrentTime(time T) {
 	t.CurrentTime = time
 }
