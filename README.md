@@ -2,11 +2,12 @@
 
 A low-alloc, low time complexity, generics based utilities library for 2D games.
 
-* Movement (normalization, drag...)
+* Movement (lerping, normalization, drag...)
 * Math (vectors, clamping, lerping...)
 * Slices (remove, filter in place...)
-* Tile (1D, 2D, safe indexing...)
+* Tile (1D, 2D, conversions, slicing, safe indexing...)
 * Timer (linear, delta...)
+* Ammo container
 
 ## BENCHMARKS for slice operations
 ```
