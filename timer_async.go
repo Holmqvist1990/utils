@@ -6,10 +6,15 @@ import (
 )
 
 // Runs f after seconds.
-func After(seconds float64, f func()) {
+func After(lock *bool, seconds float64, f func()) {
+	if lock == nil || (lock != nil && *lock) {
+		return
+	}
+	*lock = true
 	go func() {
 		time.Sleep(time.Millisecond * time.Duration(seconds*1000))
 		f()
+		*lock = false
 	}()
 }
 

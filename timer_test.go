@@ -3,6 +3,7 @@ package utils
 import (
 	"fmt"
 	"testing"
+	"time"
 )
 
 func TestTimerTick(t *testing.T) {
@@ -97,6 +98,27 @@ func TestTimerTickDelta(t *testing.T) {
 			t.Fatalf("%v: wanted: %v, got: %v",
 				test.Name, test.FinishedIn, finishedIn)
 		}
+	}
+}
+
+func TestAfter(t *testing.T) {
+	var lock bool
+	var count int
+	After(&lock, 0.2, func() {
+		count++
+	})
+	if !lock {
+		t.Fatalf("expected lock to be true")
+	}
+	After(&lock, 0.2, func() {
+		count++
+	})
+	time.Sleep(220 * time.Millisecond)
+	if lock {
+		t.Fatalf("expected lock to be false")
+	}
+	if count != 1 {
+		t.Fatalf("expected count to be 1, was %d", count)
 	}
 }
 
