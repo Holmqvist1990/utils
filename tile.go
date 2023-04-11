@@ -1,14 +1,14 @@
 package utils
 
 /*
-	1D index (sprite) to tileset rectangle.
-	Assumes a square tileset.
+1D index (sprite) to tileset rectangle.
+Assumes a square tileset.
 
-		sprite = 3, tileSize = N, tilesetWidth = 4
-		. . x x .
-		. . x x .
-		. . . . .
-		. . . . .
+	sprite = 3, tileSize = N, tilesetWidth = 4
+	. . x x .
+	. . x x .
+	. . . . .
+	. . . . .
 */
 func TilesetRect[T Integer](sprite, tileSize, tilesetWidth T) (x1, y1, x2, y2 T) {
 	x1 = (sprite % tilesetWidth) * tileSize
@@ -19,15 +19,15 @@ func TilesetRect[T Integer](sprite, tileSize, tilesetWidth T) (x1, y1, x2, y2 T)
 }
 
 // 1D to 2D coordinate conversion.
-func IndexToXY[T Integer](idx, mapWidth, mapHeight T) (x, y T) {
+func IndexToXY[T Integer](idx, mapWidth T) (x, y T) {
 	x = idx % mapWidth
-	y = idx / mapHeight
+	y = idx / mapWidth
 	return x, y
 }
 
 // 2D to 1D coordinate conversion.
-func XYToIndex[T Integer](x, y, mapHeight T) T {
-	return x + y*mapHeight
+func XYToIndex[T Integer](x, y, mapWidth T) T {
+	return x + y*mapWidth
 }
 
 // Removes under/overflow.
