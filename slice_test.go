@@ -14,10 +14,10 @@ func BenchmarkRemove(b *testing.B) {
 }
 
 func BenchmarkRemoveMany(b *testing.B) {
-	ints := makeInts(Max(4, b.N*2))
+	ints := makeInts(max(4, b.N*2))
 	b.ResetTimer()
 	for i := 0; i < b.N/4; i++ {
-		l := Max(0, (len(ints)/2)-4)
+		l := max(0, (len(ints)/2)-4)
 		ints = RemoveMany(ints, l, l+1, l+2, l+3)
 	}
 }

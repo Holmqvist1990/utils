@@ -2,33 +2,16 @@ package utils
 
 import "math"
 
-func Max[T Number](a, b T) T {
-	if a > b {
-		return a
-	}
-
-	return b
-}
-
-func Min[T Number](a, b T) T {
-	if a < b {
-		return a
-	}
-
-	return b
-}
-
 func Abs[T Number](n T) T {
 	if n < 0 {
 		return -n
 	}
-
 	return n
 }
 
 func Magnitude[T Number](x, y T) T {
-	_x, _y := float64(x), float64(y)
-	return T(math.Sqrt(_x*_x + _y*_y))
+	a, b := float64(x), float64(y)
+	return T(math.Sqrt(a*a + b*b))
 }
 
 func Sqr[T Number](t T) T {
@@ -44,20 +27,18 @@ func Normalize[T Float](x, y T) (T, T) {
 	return x / m, y / m
 }
 
-func Distance[T Number](x1, y1, x2, y2 T) T {
+func Distance(x1, y1, x2, y2 float64) float64 {
+	dx := x2 - x1
+	dy := y2 - y1
+	return math.Sqrt(dx*dx + dy*dy)
+}
+
+func DistanceManhattan[T Number](x1, y1, x2, y2 T) T {
 	return Abs(x2-x1) + Abs(y2-y1)
 }
 
 func Clamp[T Number](n, low, high T) T {
-	return Max(low, Min(n, high))
-}
-
-func ClampFloor[T Number](n, low T) T {
-	return Max(n, low)
-}
-
-func ClampCeiling[T Number](n, high T) T {
-	return Min(n, high)
+	return max(low, min(n, high))
 }
 
 // Minimum absolute value or zero.

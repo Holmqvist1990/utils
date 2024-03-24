@@ -32,7 +32,7 @@ func XYToIndex[T Integer](x, y, mapWidth T) T {
 
 // Removes under/overflow.
 func ClampXYToMap[T Integer](x, y, mapWidth, mapHeight T) (T, T) {
-	return Max(0, Min(x, mapWidth-1)), Max(0, Min(y, mapHeight-1))
+	return max(0, min(x, mapWidth-1)), max(0, min(y, mapHeight-1))
 }
 
 // Removes under/overflow.
@@ -50,5 +50,5 @@ func IsIndexInRange[T Integer](index, mapWidth, mapHeight T) bool {
 
 // Returns range through min/max for XY.
 func XYRange[T Number](x1, y1, x2, y2 T) (T, T, T, T) {
-	return Min(x1, x2), Min(y1, y2), Max(x1, x2), Max(y1, y2)
+	return min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2)
 }
