@@ -1,4 +1,4 @@
-module github.com/Holmqvist1990/utils
+module github.com/fholmqvist/utils
 
 go 1.22
 
